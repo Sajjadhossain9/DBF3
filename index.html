@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Airborne Phoenix — AAUB Design • Build • Fly team. A student aerospace engineering team designing, building and flying competition aircraft." />
+    <meta name="theme-color" content="#0a1224" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f7fb" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+    <meta property="og:title" content="Airborne Phoenix — AAUB DBF Team" />
+    <meta property="og:description" content="Design • Build • Fly. A serious aerospace engineering team building competition aircraft." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/images/hero-poster.webp" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230a1224'/%3E%3Cpath d='M32 10 L54 44 L32 36 L10 44 Z' fill='%23ff7a1a'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="/images/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script>
+      // Apply persisted / system theme before first paint to avoid flash.
+      (function () {
+        try {
+          var s = localStorage.getItem('ap-theme');
+          var t = s === 'light' || s === 'dark' ? s : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+    <title>Airborne Phoenix — AAUB Design • Build • Fly Team</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
