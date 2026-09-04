@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Airborne Phoenix — Redirecting...</title>
+    <script>
+      // Single Page Application redirect for GitHub Pages
+      (function() {
+        var l = window.location;
+        var path = l.pathname;
+        // GitHub Pages repository subpath handling
+        var segments = path.split('/').filter(Boolean);
+        var repo = segments.length > 0 && l.hostname.endsWith('github.io') ? '/' + segments[0] : '';
+        var targetPath = path.substring(repo.length);
+        if (!targetPath.startsWith('/')) targetPath = '/' + targetPath;
+        var query = l.search || '';
+        var hash = l.hash || '';
+        var newUrl = l.protocol + '//' + l.host + repo + '/#' + targetPath + query + hash;
+        window.location.replace(newUrl);
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to <a href="./">Airborne Phoenix</a>...</p>
+  </body>
+</html>
