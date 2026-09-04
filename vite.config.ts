@@ -10,6 +10,8 @@ const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages serves this project from /DBF3/ instead of the domain root.
+  base: "/DBF3/",
   plugins: [react(), tailwindcss(), viteSingleFile()],
   resolve: {
     alias: {
