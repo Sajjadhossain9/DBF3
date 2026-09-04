@@ -41,8 +41,8 @@ const routes = [
   },
 ];
 
-/* Use hash routing when served from a static file (no server rewrites), otherwise clean URLs. */
-const router = isHashRouting() ? createHashRouter(routes) : createBrowserRouter(routes);
+/* Hash routing ensures flawless routing on GitHub Pages, subdirectories, previews, and static hosts without server rewrites */
+const router = createHashRouter(routes);
 
 export default function App() {
   return <RouterProvider router={router} />;

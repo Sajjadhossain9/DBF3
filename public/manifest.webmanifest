@@ -2,8 +2,8 @@
   "name": "Airborne Phoenix — AAUB DBF Team",
   "short_name": "Airborne Phoenix",
   "description": "Design • Build • Fly. Student aerospace engineering team at Aviation and Aerospace University, Bangladesh.",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#0a1224",
@@ -11,12 +11,12 @@
   "lang": "en",
   "categories": ["education", "engineering"],
   "icons": [
-    { "src": "/images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "/images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    { "src": "./images/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "shortcuts": [
-    { "name": "Aircraft", "url": "/aircraft" },
-    { "name": "Sponsorship", "url": "/sponsors" },
-    { "name": "Contact", "url": "/contact" }
+    { "name": "Aircraft", "url": "./#/aircraft" },
+    { "name": "Sponsorship", "url": "./#/sponsors" },
+    { "name": "Contact", "url": "./#/contact" }
   ]
 }
