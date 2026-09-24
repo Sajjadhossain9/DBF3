@@ -7,7 +7,7 @@ import { divisions } from "@/data/divisions";
 import { aircraft } from "@/data/aircraft";
 import { articles } from "@/data/news";
 import { useCopy, useKey, useReducedMotion, useScrollProgress, useTheme } from "@/hooks";
-import { Emblem, StatusDot } from "./graphics";
+import { Emblem } from "./graphics";
 import { Close } from "./ui";
 
 /* ---------- Theme & motion toggles ---------- */
@@ -137,48 +137,62 @@ function Navbar({ onSearch }: { onSearch: () => void }) {
 function Footer() {
   const { copied, copy } = useCopy();
   const { userReduced, toggle } = useReducedMotion();
+  const socialLinks = Object.entries(site.social).filter(([, url]) => {
+    try { return new URL(url).pathname !== "/"; } catch { return false; }
+  });
   return (
-    <footer className="relative border-t border-line bg-sunk">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 blueprint-grid opacity-40 [mask-image:linear-gradient(to_top,black,transparent)]" />
-      <div className="container-x relative grid gap-12 py-16 md:grid-cols-12">
-        <div className="md:col-span-5">
-          <div className="flex items-center gap-3"><Emblem size={36} /><div><div className="text-sm font-semibold tracking-[.18em]">AIRBORNE PHOENIX</div><div className="font-mono text-[10px] uppercase tracking-[.3em] text-faint">{site.tagline}</div></div></div>
-          <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted">{site.university}. A student aerospace engineering team designing, building and flying competition aircraft.</p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <button onClick={() => copy(site.email)} className="inline-flex min-h-10 items-center gap-2 border border-line px-3 font-mono text-[11px] tracking-wide text-muted hover:border-line-strong hover:text-fg">
-              <span>{site.email}</span>
-              <span className={cn("transition-colors", copied ? "text-emerald-400" : "text-faint")}>{copied ? "Copied ✓" : "Copy"}</span>
-            </button>
+    <footer className="relative overflow-hidden border-t border-line bg-sunk">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 blueprint-grid opacity-30 [mask-image:linear-gradient(to_top,black,transparent)]" />
+      <div className="container-x relative">
+        <div className="flex flex-col gap-6 border-b border-line py-9 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[.24em] text-accent">Student-built · Competition-ready</p>
+            <h2 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl">Design. Build. Fly.</h2>
           </div>
+          <Link to="/contact" className="btn-arrow inline-flex min-h-11 items-center justify-center gap-3 border border-line-strong px-4 text-sm font-medium transition-colors hover:border-[var(--accent)] hover:text-accent">
+            Contact the team
+            <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><path d="M4 12h15M13 5l7 7-7 7" /></svg>
+          </Link>
         </div>
-        <div className="grid grid-cols-2 gap-8 md:col-span-4">
-          <div>
-            <div className="mb-4 font-mono text-[10px] uppercase tracking-[.25em] text-faint">Navigate</div>
-            <ul className="space-y-2 text-sm">{nav.slice(1).map((n) => <li key={n.to}><Link className="text-muted hover:text-fg" to={n.to}>{n.label}</Link></li>)}</ul>
+
+        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:py-14">
+          <div className="sm:col-span-2 lg:col-span-4">
+            <Link to="/" className="inline-flex items-center gap-3" aria-label="Airborne Phoenix home">
+              <Emblem size={38} />
+              <span className="flex flex-col"><span className="text-sm font-semibold tracking-[.16em]">AIRBORNE PHOENIX</span><span className="mt-1 font-mono text-[9px] uppercase tracking-[.28em] text-faint">{site.tagline}</span></span>
+            </Link>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted">{site.university}. A student aerospace engineering team designing, building and flying competition aircraft.</p>
+            <p className="mt-4 font-mono text-[10px] uppercase tracking-wider text-faint">{site.location}</p>
           </div>
-          <div>
-            <div className="mb-4 font-mono text-[10px] uppercase tracking-[.25em] text-faint">Resources</div>
-            <ul className="space-y-2 text-sm text-muted">
-              <li><Link className="hover:text-fg" to="/news/press-kit">Press kit</Link></li>
-              <li><Link className="hover:text-fg" to="/sponsors#deck">Sponsorship deck</Link></li>
-              <li><Link className="hover:text-fg" to="/aircraft#specs">Technical summary</Link></li>
-              <li><Link className="hover:text-fg" to="/privacy">Privacy notice</Link></li>
-              <li><button onClick={toggle} className="hover:text-fg">{userReduced ? "Enable motion" : "Reduce motion"}</button></li>
+
+          <div className="lg:col-span-2">
+            <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[.22em] text-faint">Explore</h3>
+            <ul className="space-y-3 text-sm">{nav.slice(1, 5).map((n) => <li key={n.to}><Link className="text-muted transition-colors hover:text-fg" to={n.to}>{n.label}</Link></li>)}</ul>
+          </div>
+
+          <div className="lg:col-span-2">
+            <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[.22em] text-faint">Discover</h3>
+            <ul className="space-y-3 text-sm text-muted">
+              {nav.slice(5, 8).map((n) => <li key={n.to}><Link className="transition-colors hover:text-fg" to={n.to}>{n.label}</Link></li>)}
+              <li><Link className="transition-colors hover:text-fg" to="/privacy">Privacy notice</Link></li>
+              <li><button onClick={toggle} className="transition-colors hover:text-fg">{userReduced ? "Enable motion" : "Reduce motion"}</button></li>
             </ul>
           </div>
-        </div>
-        <div className="md:col-span-3">
-          <div className="mb-4 font-mono text-[10px] uppercase tracking-[.25em] text-faint">Status</div>
-          <div className="space-y-3 border border-line p-4 font-mono text-[11px] uppercase tracking-widest">
-            <div className="flex items-center justify-between"><span className="text-muted">Programme</span><span className="flex items-center gap-2"><StatusDot status="active" />AP-2 active</span></div>
-            <div className="flex items-center justify-between"><span className="text-muted">Season</span><span>2025–26</span></div>
-            <div className="flex items-center justify-between"><span className="text-muted">Recruiting</span><span className="flex items-center gap-2"><StatusDot status="pending" />Sponsors</span></div>
+
+          <div className="lg:col-span-4">
+            <h3 className="mb-4 font-mono text-[10px] uppercase tracking-[.22em] text-faint">Get in touch</h3>
+            <a href={`mailto:${site.email}`} className="text-sm font-medium transition-colors hover:text-accent">{site.email}</a>
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted">
+              <button onClick={() => copy(site.email)} className="underline decoration-line-strong underline-offset-4 transition-colors hover:text-fg" aria-live="polite">{copied ? "Email copied" : "Copy email"}</button>
+              {socialLinks.map(([name, url]) => <a key={name} href={url} target="_blank" rel="noreferrer" className="capitalize transition-colors hover:text-fg">{name}</a>)}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="container-x relative flex flex-col gap-2 border-t border-line py-5 font-mono text-[10px] uppercase tracking-widest text-faint sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} Airborne Phoenix · {site.team}</span>
-        <span>Placeholder imagery via Pexels · Replace with team assets</span>
+
+        <div className="flex flex-col gap-3 border-t border-line py-5 font-mono text-[10px] uppercase tracking-[.12em] text-faint sm:flex-row sm:items-center sm:justify-between">
+          <span>© {new Date().getFullYear()} Airborne Phoenix · {site.team}</span>
+          <Link to="/" className="inline-flex items-center gap-2 transition-colors hover:text-fg">A team built around flight <span aria-hidden="true" className="text-accent">↗</span></Link>
+        </div>
       </div>
     </footer>
   );
